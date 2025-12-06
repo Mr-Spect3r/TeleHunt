@@ -41,4 +41,4 @@ cd TeleHunt
 python TeleHunt
 ```
 
-
+Read Document: <a href="https://github.com/Mr-Spect3r/TeleHunt/wiki">Document-TeleHunt
