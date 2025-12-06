@@ -830,7 +830,7 @@ if __name__ == "__main__":
     w = worktermux if OS() else workwol
     clear()
     print (b)
-    parser = ArgumentParser(description=f"{messages['wait']}Telegram Message and Entity Search Tool")
+    parser = ArgumentParser(description=f"{messages['wait']}TeleHunt")
 
     parser.add_argument("--add", type=str, help="Add account: apihash:apiid:phone")
     parser.add_argument("--show", action="store_true", help="Show all accounts")
@@ -897,3 +897,4 @@ if __name__ == "__main__":
             break
     else:
         print (f"{messages['error']}Invalid arguments. Use --help for usage information.")
+
