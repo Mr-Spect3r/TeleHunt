@@ -38,7 +38,7 @@ There is also the ability to forward content from private channels (`if it is te
 ```
 git clone https://github.com/Mr-Spect3r/TeleHunt
 cd TeleHunt
-python TeleHunt
+python TeleHunt.py
 ```
 
 Read Document: <a href="https://github.com/Mr-Spect3r/TeleHunt/wiki">Document-TeleHunt
