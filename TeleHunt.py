@@ -14,7 +14,7 @@ from argparse import ArgumentParser
 # Customize Lib
 
 from modules.colors import colors,messages,wol,workwol,termux,worktermux
-
+from modules.colors import messages as mes
 
 FILES = {
     "accounts": "accounts.json",
@@ -274,7 +274,7 @@ sent_messages_info = []
 async def forward_messages_for_all_clients(account_messages, forward_user, forward_clients, limit=3):
     f = 0  
 
-    print(f"{messages['suc']}Forwarding messages from {len(forward_clients)} clients.")
+    print(f"{mes['suc']}Forwarding messages from {len(forward_clients)} clients.")
 
     async def forward_from_client(forward_client, messages):
         nonlocal f
@@ -282,7 +282,7 @@ async def forward_messages_for_all_clients(account_messages, forward_user, forwa
             if limit and f >= limit:
                 return 
             if msg["message_id"] in sent_message_ids:
-                print(f"{messages['war']}Skipping already forwarded message {msg['message_id']}")
+                print(f"{mes['war']}Skipping already forwarded message {msg['message_id']}")
                 continue  
 
             try:
@@ -300,12 +300,12 @@ async def forward_messages_for_all_clients(account_messages, forward_user, forwa
                 })
 
                 f += 1
-                print(f"{messages['suc']}Forwarded message {f} to {forward_user.username if forward_user else forward_user.id}")
+                print(f"{mes['suc']}Forwarded message {f} to {forward_user.username if forward_user else forward_user.id}")
                 if f >= limit:
                     return  
 
             except Exception as e:
-                print(f"{messages['war']}Error forwarding message from client {forward_client.session.filename}: {e}")
+                print(f"{mes['war']}Error forwarding message from client {forward_client.session.filename}: {e}")
 
     tasks = []
     for forward_client, account in zip(forward_clients, account_messages.keys()):
@@ -314,7 +314,7 @@ async def forward_messages_for_all_clients(account_messages, forward_user, forwa
 
     await asyncio.gather(*tasks)
 
-    print(f"{messages['suc']}Messages forwarded successfully!")
+    print(f"{mes['suc']}Messages forwarded successfully!")
 
 async def search_messages(account_numbers, search_text=3, sender=3, limit=3, forward_to=3, file_type=3):
     accounts = load_accounts(FILES['accounts'])
@@ -352,7 +352,7 @@ async def search_messages(account_numbers, search_text=3, sender=3, limit=3, for
             all_messages.extend(messages)
 
     if forward_to and all_messages:
-        print(f"\n{messages['wait']}Forwarding messages...")
+        print(f"\n{mes['wait']}Forwarding messages...")
 
         forward_clients = []
 
@@ -368,11 +368,11 @@ async def search_messages(account_numbers, search_text=3, sender=3, limit=3, for
             try:
                 forward_user = await get_user_by_id(forward_clients[0], int(forward_to))
             except ValueError:
-                print(f"{messages['error']}Invalid forward_to value: {forward_to}")
+                print(f"{mes['error']}Invalid forward_to value: {forward_to}")
                 forward_user = 3
 
         if not forward_user:
-            print(f"{messages['war']}Forward target not found.")
+            print(f"{mes['war']}Forward target not found.")
         else:
 
             await forward_messages_for_all_clients(account_messages, forward_user, forward_clients, limit)
@@ -386,10 +386,10 @@ async def search_messages(account_numbers, search_text=3, sender=3, limit=3, for
             [msg["sender_id"], msg["sender_name"], msg["message_type"], msg["message"], msg["date"]]
             for msg in sent_messages_info
         ]
-        print(f"{messages['suc']}Results Table:")
+        print(f"{mes['suc']}Results Table: {colors['white']}\n\n")
         print(tabulate(table, headers, tablefmt="fancy_grid", maxcolwidths=[15, 15, 15, 40, 20]))
     else:
-        print(f"{messages['war']}No messages found or forwarded.")
+        print(f"{mes['war']}No messages found or forwarded.")
 
 
 async def fetchDGC(account_numbers, entity_type):
@@ -543,7 +543,7 @@ async def capture_messages(account, target_username, forward_to, limit=3, file_t
             [msg["sender_id"], msg["sender_name"], msg["message_type"], msg["message"], msg["date"]]
             for msg in collected
         ]
-        print(f"\n{messages['suc']}Results Table:")
+        print(f"\n{messages['suc']}Results Table:{colors['white']}\n\n")
         print(tabulate(table, headers, tablefmt="fancy_grid", maxcolwidths=[15, 15, 15, 40, 20]))
 
         if forward_to:
@@ -592,7 +592,7 @@ async def capture_main(account_numbers, target_username, forward_to, limit=3, fi
 async def fetch_messages_from_channel(client, channel_link, limit="all"):
     try:
         channel = await client.get_entity(channel_link)
-        print(f"{messages['wait']}Fetching messages from channel: {channel.title} ({channel.id})")
+        print(f"{mes['wait']}Fetching messages from channel: {channel.title} ({channel.id})")
 
         messages = []
         async for message in client.iter_messages(channel.id, limit=None if limit == "all" else int(limit)):
@@ -614,7 +614,7 @@ async def fetch_messages_from_channel(client, channel_link, limit="all"):
 
         return messages
     except Exception as e:
-        print(f"{messages['war']}Error fetching messages from channel {channel_link}: {e}")
+        print(f"{mes['war']}Error fetching messages from channel {channel_link}: {e}")
         return []
 
 
@@ -627,7 +627,7 @@ async def forward_messages_to_channel(client, messages, forward_to, limit="all")
             try:
                 forward_user = await get_user_by_id(client, int(forward_to))
             except ValueError:
-                print(f"{messages['error']}Invalid forward_to value: {forward_to}")
+                print(f"{mes['error']}Invalid forward_to value: {forward_to}")
                 forward_user = None
 
         download_messages = False
@@ -646,50 +646,50 @@ async def forward_messages_to_channel(client, messages, forward_to, limit="all")
                        
                         await client.send_message(forward_user.id, original.text)
                         f += 1
-                        print(f"{messages['suc']}Forwarded message (text) to {forward_user.username if forward_user else forward_user.id}")
+                        print(f"{mes['suc']}Forwarded message (text) to {forward_user.username if forward_user else forward_user.id}")
 
               
                     elif original.media and not original.text:
                        
                         file_path = await original.download_media(file="downloads/")
-                        print(f"{messages['suc']}Downloaded media file to {file_path}")
+                        print(f"{mes['suc']}Downloaded media file to {file_path}")
                         await client.send_file(forward_user.id, file_path)
                         f += 1
-                        print(f"{messages['suc']}Forwarded media message to {forward_user.username if forward_user else forward_user.id}")
+                        print(f"{mes['suc']}Forwarded media message to {forward_user.username if forward_user else forward_user.id}")
 
                    
                     elif original.media and original.text:
                         
                         await original.forward_to(forward_user.id)
                         f += 1
-                        print(f"{messages['suc']}Forwarded media with caption to {forward_user.username if forward_user else forward_user.id}")
+                        print(f"{mes['suc']}Forwarded media with caption to {forward_user.username if forward_user else forward_user.id}")
 
                 except Exception as e:
-                    print(f"{messages['war']}Error forwarding message: {e}")
+                    print(f"{mes['war']}Error forwarding message: {e}")
                   
                     if not download_messages: 
-                        user_input = input(f"{messages['ques']}Do you want to download and send the post manually? (y/n): ").lower()
+                        user_input = input(f"{mes['ques']}Do you want to download and send the post manually? (y/n): ").lower()
                         if user_input == 'y':
                             download_messages = True
-                            print(f"{messages['suc']}sending post {msg['message_id']} manually...")
+                            print(f"{mes['suc']}sending post {msg['message_id']} manually...")
                     
                     if download_messages:
                      
                         if original.media:
                             file_path = await original.download_media(file="downloads/")
                             if file_path:
-                                print(f"{messages['suc']}File downloaded to {file_path}")
+                                print(f"{mes['suc']}File downloaded to {file_path}")
                                 
                               
                                 await client.send_file(forward_user.id, file_path, caption=original.text)
-                                print(f"{messages['wait']}Manually forwarded message to {forward_user.username if forward_user else forward_user.id} with caption.")
+                                print(f"{mes['wait']}Manually forwarded message to {forward_user.username if forward_user else forward_user.id} with caption.")
                                 f += 1
                         else:
-                            print(f"{messages['war']}No media found in message {msg['message_id']}, skipping download.")
+                            print(f"{mes['war']}No media found in message {msg['message_id']}, skipping download.")
         else:
-            print(f"{messages['war']}Forward target not found.")
+            print(f"{mes['war']}Forward target not found.")
     except Exception as e:
-        print(f"{messages['war']}Error forwarding messages: {e}")
+        print(f"{mes['war']}Error forwarding messages: {e}")
 
 async def forward_from_channel(account_numbers, link, forward_to, limit="all", show_table=False):
     accounts = load_accounts(FILES['accounts'])
@@ -721,10 +721,10 @@ async def forward_from_channel(account_numbers, link, forward_to, limit="all", s
 
     if show_table and all_forwarded_messages:
         headers = ["Sender ID", "Message", "Date"]
-        print(f"\n{messages['suc']}Forwarded Messages:")
+        print(f"\n{mes['suc']}Forwarded Messages:")
         print(tabulate(all_forwarded_messages, headers, tablefmt="fancy_grid", maxcolwidths=[15, 40, 20]))
     else:
-        print(f"{messages['suc']}Messages forwarded successfully!")
+        print(f"{mes['suc']}Messages forwarded successfully!")
 
 
 def save_links(links):
@@ -867,7 +867,15 @@ if __name__ == "__main__":
         exit()
 
     if not args.acc:
-        print(f"{messages['error']}Invalid arguments. Use --help for usage information.")
+        print(f"""
+{colors['yellow']}
+ _____    _      _   _             _   
+|_   _|__| | ___| | | |_   _ _ __ | |_ 
+  | |/ _ \ |/ _ \ |_| | | | | '_ \| __|
+  | |  __/ |  __/  _  | |_| | | | | |_ 
+  |_|\___|_|\___|_| |_|\__,_|_| |_|\__|
+               
+{messages['error']}Invalid arguments. Use --help for usage information.""")
         exit()
 
     dispatch = [
@@ -888,13 +896,4 @@ if __name__ == "__main__":
             asyncio.run(func())
             break
     else:
-        print (f"""{colors['yellow']}
- _____    _      _   _             _   
-|_   _|__| | ___| | | |_   _ _ __ | |_ 
-  | |/ _ \ |/ _ \ |_| | | | | '_ \| __|
-  | |  __/ |  __/  _  | |_| | | | | |_ 
-  |_|\___|_|\___|_| |_|\__,_|_| |_|\__|
-               
-    {messages['error']}Invalid arguments. Use --help for usage information.
-""")
-
+        print (f"{messages['error']}Invalid arguments. Use --help for usage information.")
