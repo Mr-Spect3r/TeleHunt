@@ -847,7 +847,6 @@ if __name__ == "__main__":
     parser.add_argument("--file-type", type=str, help="Filter by file type (e.g. pdf, zip, etc.)")
     parser.add_argument("--capture", action="store_true", help="Capture all messages of a target user")
     parser.add_argument("--target", type=str, help="Username or user_id to capture messages from")
-    parser.add_argument("--post-channel", type=str, help="The number of posts to fetch or 'all' to fetch all messages from a channel")
     parser.add_argument("--link", type=str, help="Link or username of the channel to fetch messages from")
     parser.add_argument("--table", action="store_true", help="Show results in a table format")
     parser.add_argument("--linkfinder", action="store_true", help="Find all links in messages and save them")
@@ -898,3 +897,4 @@ if __name__ == "__main__":
                
     {messages['error']}Invalid arguments. Use --help for usage information.
 """)
+
