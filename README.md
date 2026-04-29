@@ -1,44 +1,53 @@
-# TeleHunt
+# 🎯 TeleHunt - Advanced Telegram Multi-Account Management Tool
 
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://python.org)
+[![Telethon](https://img.shields.io/badge/telethon-latest-green.svg)](https://github.com/LonamiWebs/Telethon)
+[![License](https://img.shields.io/badge/license-MIT-red.svg)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-@MrMrEsfelurm-blue.svg)](https://t.me/MrMrEsfelurm)
 
-# Menu
+<img src="https://github.com/user-attachments/assets/f55a20ca-700e-40e0-bf61-380586d0d32b" width="600" alt="TeleHunt Banner">
 
-<img src="https://github.com/user-attachments/assets/f55a20ca-700e-40e0-bf61-380586d0d32b">
+## 📌 Overview
 
-<b>
-This tool is written in Python (please use version +3.10)
+**TeleHunt** is a powerful Telegram multi-account management and reconnaissance tool written in Python. It provides comprehensive capabilities for searching, capturing, and forwarding messages across multiple Telegram accounts simultaneously.
 
-This tool has the ability to search multi-accounts, list channels and bot groups and direct messages
+### ✨ Features
 
-You can also find messages from a person in groups that you are a member of
+- 🔑 **Multi-Account Management** - Handle multiple Telegram accounts seamlessly
+- 🔍 **Advanced Message Search** - Search messages with text, sender, and file type filters
+- 📊 **Entity Discovery** - List groups, channels, bots, and direct messages
+- 🎯 **Target Message Capture** - Capture all messages from specific users across groups
+- 🔗 **Link Finder** - Extract and save all links from messages using regex
+- 📤 **Smart Forwarding** - Forward messages with media support (downloads files if needed)
+- 💾 **JSON Export** - Save all results in structured JSON format
+- 🎨 **Beautiful Tables** - Display results in formatted tables using tabulate
+- ⚡ **Async Operations** - Fast concurrent processing with asyncio
 
-There is also the ability to filter message types
+## 🖼️ Screenshot
 
-It also has the ability to find links very cleanly with regex
+<img src="https://github.com/user-attachments/assets/0ba4c5c8-9d27-45c0-bed0-2a1c21295988" width="600" alt="TeleHunt Interface">
 
-and it saves all output as json
+## 📋 Requirements
 
-There is also the ability to forward content from private channels (`if it is text, it copies it and sends it, but if it is a file or content, it downloads it and sends it`).
-</b>
+- **Python**: Version 3.10 or higher
+- **Libraries**:
+  - `telethon` - Telegram API client
+  - `tabulate` - Table formatting
+  - `colorama` - Terminal colors
 
-<img src="https://github.com/user-attachments/assets/0ba4c5c8-9d27-45c0-bed0-2a1c21295988">
+## 🚀 Installation
 
-# Libs
-
-
-- telethon
-
-- tabulate
-
-- colorama
-
-
-# Install
-
-```
+```bash
+# Clone the repository
 git clone https://github.com/Mr-Spect3r/TeleHunt
 cd TeleHunt
+
+# Install required libraries
+pip install telethon tabulate colorama
+
+# Run the tool
 python TeleHunt.py
 ```
 
-Read Document: <a href="https://github.com/Mr-Spect3r/TeleHunt/wiki">Document-TeleHunt
+## 📖 Documentation
+Full documentation is available on the <a href="https://github.com/Mr-Spect3r/TeleHunt/wiki">Wiki
