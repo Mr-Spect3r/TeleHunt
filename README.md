@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://python.org)
 [![Telethon](https://img.shields.io/badge/telethon-latest-green.svg)](https://github.com/LonamiWebs/Telethon)
 [![License](https://img.shields.io/badge/license-MIT-red.svg)](LICENSE)
-[![Telegram](https://img.shields.io/badge/Telegram-@MrMrEsfelurm-blue.svg)](https://t.me/MrMrEsfelurm)
+[![Telegram](https://img.shields.io/badge/Telegram-@MrMrEsfelurm-blue.svg)](https://t.me/MrEsfelurm)
 
 <img src="https://github.com/user-attachments/assets/f55a20ca-700e-40e0-bf61-380586d0d32b" width="600" alt="TeleHunt Banner">
 
